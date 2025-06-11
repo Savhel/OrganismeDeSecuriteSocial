@@ -2,25 +2,18 @@ package com.fivet.organismedesecuritesocial.Services.DTO.Classes;
 
 
 import com.fivet.organismedesecuritesocial.Models.Medecin;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GeneralisteDTO {
+public abstract class AssureMedecinDTO {
 
     @NonNull
     private UUID idPersonne;
 
     @NonNull
-    private MedecinDTO medecin;
-
-    @NonNull
-    private String secteur;
+    private Medecin medecin;
 }

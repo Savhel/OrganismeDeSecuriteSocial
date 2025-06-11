@@ -21,5 +21,5 @@ public class Generaliste {
 
     @NonNull
     @Column(nullable = false)
-    private String Secteur;
+    private String secteur;
 }

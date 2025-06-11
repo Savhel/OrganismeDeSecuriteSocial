@@ -20,4 +20,12 @@ public class LectureConsultation {
     public List<Consultation> lectureConsultation(){
         return consultationRepository.findAll();
     }
+
+    public List<Consultation> lectureConsultationParAssure(UUID id){
+        return consultationRepository.findByAssure_IdPersonne(id);
+    }
+
+    public List<Consultation> lectureConsultationParMedecin(UUID id){
+        return consultationRepository.findByMedecin_IdPersonne(id);
+    }
 }

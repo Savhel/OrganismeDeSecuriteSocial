@@ -41,6 +41,7 @@ public class SecurityConfig {
                             .requestMatchers("/api/assure/**").hasRole("ASSURE")
                             .requestMatchers("/api/medecin/**").hasRole("MEDECIN")
                             .requestMatchers("/api/personne/**").permitAll()
+                            .requestMatchers("/api/feuille-maladie/**").permitAll()
                             .anyRequest().authenticated();
                 })
                 .sessionManagement(sess -> {

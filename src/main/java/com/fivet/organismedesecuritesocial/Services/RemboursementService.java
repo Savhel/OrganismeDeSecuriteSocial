@@ -28,11 +28,11 @@ public class RemboursementService {
     @Autowired
     private SuppressionRemboursement suppressionRemboursement;
 
-    public RemboursementCashDTO ajouterRembousementCash(Remboursement remboursement, RemboursementCash remboursementCash) {
-        return DtoMapper.toRemboursementCashDTO(creationRemboursement.saveRemboursement(remboursement, remboursementCash));
+    public RemboursementCashDTO ajouterRembousementCash(RemboursementCash remboursementCash, UUID idFeuilleMaladie) {
+        return DtoMapper.toRemboursementCashDTO(creationRemboursement.saveRemboursement(remboursementCash,idFeuilleMaladie));
     }
-    public RemboursementVirementDTO ajouterRembousementCash(Remboursement remboursement, RemboursementVirement remboursementVirement) {
-        return DtoMapper.toRemboursementVirementDTO(creationRemboursement.saveRemboursement(remboursement, remboursementVirement));
+    public RemboursementVirementDTO ajouterRembousementCash(RemboursementVirement remboursementVirement, UUID idFeuilleMaladie) {
+        return DtoMapper.toRemboursementVirementDTO(creationRemboursement.saveRemboursement(remboursementVirement, idFeuilleMaladie));
     }
 
     public RemboursementCashDTO modifierRembousementCash(Remboursement remboursement,RemboursementCash remboursementCash, UUID id) {

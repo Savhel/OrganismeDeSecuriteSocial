@@ -24,13 +24,13 @@ public class Consultation {
     private LocalDate dateConsultation;
     @NonNull
     @Column(nullable = false)
-    private LocalTime HeureDeConsultation;
+    private LocalTime heureDeConsultation;
     @NonNull
     @Column(nullable = false)
     private String diagnostic;
     @NonNull
     @Column(nullable = false)
-    private String Soins;
+    private String soins;
     @NonNull
     @Column(nullable = false)
     private String motif;

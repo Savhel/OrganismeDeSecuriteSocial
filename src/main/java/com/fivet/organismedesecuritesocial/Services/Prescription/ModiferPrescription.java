@@ -20,7 +20,7 @@ public class ModiferPrescription {
         if (prescriptionRepository.findById(id).isPresent()){
             Prescription prescription1 = prescriptionRepository.findById(id).get();
             prescription1.setInstructions(prescription.getInstructions());
-            prescription1.setMediament(prescription.getMediament());
+            prescription1.setMedicament(prescription.getMedicament());
             prescription1.setDosage(prescription.getDosage());
             prescription1.setSpecialiste(prescription.getSpecialiste());
             return prescriptionRepository.save(prescription1);

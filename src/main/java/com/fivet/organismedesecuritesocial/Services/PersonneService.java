@@ -1,9 +1,8 @@
 package com.fivet.organismedesecuritesocial.Services;
 
 import com.fivet.organismedesecuritesocial.Models.*;
-import com.fivet.organismedesecuritesocial.Services.DTO.Classes.AssureDTO;
-import com.fivet.organismedesecuritesocial.Services.DTO.Classes.GeneralisteDTO;
-import com.fivet.organismedesecuritesocial.Services.DTO.Classes.SpecialisteDTO;
+import com.fivet.organismedesecuritesocial.Repositories.PersonneRepository;
+import com.fivet.organismedesecuritesocial.Services.DTO.Classes.*;
 import com.fivet.organismedesecuritesocial.Services.DTO.DtoMapper;
 import com.fivet.organismedesecuritesocial.Services.Personne.Creation.*;
 import com.fivet.organismedesecuritesocial.Services.Personne.Lecture.LectureAssure;
@@ -58,12 +57,35 @@ public class PersonneService {
     private LectureAssure lectureAssure;
     @Autowired
     private LectureSpecialiste lectureSpecialiste;
+    @Autowired
+    private PersonneRepository personneRepository;
 
     @Transactional
     public AssureDTO createNew(Personne personne, Assure assure) {
         assure.setPersonne(createPersonne.createAccount(personne));
         return DtoMapper.toAssureDTO(createAssure.createAccount(assure));
     }
+
+    @Transactional
+    public AssureDTO createNew(MedecinAssureDTO medecinAssureDTO) {
+        medecinAssureDTO.getAssure().setPersonne(personneRepository.findByIdPersonne(medecinAssureDTO.getIdMedecin()).get());
+        return DtoMapper.toAssureDTO(createAssure.createAccount(medecinAssureDTO.getAssure()));
+    }
+
+    @Transactional
+    public GeneralisteDTO createNew(AssureGeneralisteDTO assureGeneralisteDTO) {
+        assureGeneralisteDTO.getMedecin().setPersonne(personneRepository.findByIdPersonne(assureGeneralisteDTO.getIdPersonne()).get());
+        assureGeneralisteDTO.getGeneraliste().setMedecin(creationMedecin.createAccount(assureGeneralisteDTO.getMedecin()));
+        return DtoMapper.toGeneralisteDTO(creationMedecinGeneraliste.createAccount(assureGeneralisteDTO.getGeneraliste()));
+    }
+
+    @Transactional
+    public SpecialisteDTO createNew(AssureSpecialisteDTO assureSpecialisteDTO) {
+        assureSpecialisteDTO.getMedecin().setPersonne(personneRepository.findByIdPersonne(assureSpecialisteDTO.getIdPersonne()).get());
+        assureSpecialisteDTO.getSpecialiste().setMedecin(creationMedecin.createAccount(assureSpecialisteDTO.getMedecin()));
+        return DtoMapper.toSpecialisteDTO(creationSpecialiste.createAccount(assureSpecialisteDTO.getSpecialiste()));
+    }
+
     @Transactional
     public GeneralisteDTO createNew(Personne personne, Medecin medecin, Generaliste generaliste){
         medecin.setPersonne(createPersonne.createAccount(personne));
@@ -76,10 +98,13 @@ public class PersonneService {
         specialiste.setMedecin(creationMedecin.createAccount(medecin));
         return DtoMapper.toSpecialisteDTO(creationSpecialiste.createAccount(specialiste));
     }
+
+
     @Transactional
     public AssureDTO updateOld(Personne personne, Assure assure, UUID idPersonne){
         modifierAssure.modifierAccount(assure, idPersonne);
-        modifierPersonne.modifierAccount(personne,idPersonne);
+        assure.setPersonne(modifierPersonne.modifierAccount(personne,idPersonne));
+        assure.setIdPersonne(idPersonne);
         return DtoMapper.toAssureDTO(assure);
     }
     @Transactional

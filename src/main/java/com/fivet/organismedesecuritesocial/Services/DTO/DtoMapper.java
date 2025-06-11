@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class DtoMapper {
 
     public static MedecinLiteDTO toMedecinLiteDTO(Medecin medecin) {
-        return new MedecinLiteDTO(medecin.getPersonne().getIdPersonne(), medecin.getPersonne().getNom(), medecin.getPersonne().getPrenom(), medecin.getNumeroRPPS(), medecin.getAdresseCabinet());
+        return new MedecinLiteDTO(medecin.getIdPersonne(), medecin.getPersonne().getNom(), medecin.getPersonne().getPrenom(), medecin.getNumeroRPPS(), medecin.getAdresseCabinet());
     }
 
     public static AssureDTO toAssureDTO(Assure patient) {
@@ -68,7 +68,7 @@ public class DtoMapper {
     }
 
     public static PrescriptionDTO toPrescriptionDTO(Prescription prescription) {
-        return new PrescriptionDTO(prescription.getId(), prescription.getInstructions(), prescription.getMediament(), prescription.getDosage(), toSpecialisteDTO(prescription.getSpecialiste()));
+        return new PrescriptionDTO(prescription.getId(), prescription.getInstructions(), prescription.getMedicament(), prescription.getDosage(), toSpecialisteDTO(prescription.getSpecialiste()));
     }
 
     public static List<PrescriptionDTO> toPrescriptionDTOList(List<Prescription> prescriptions) {

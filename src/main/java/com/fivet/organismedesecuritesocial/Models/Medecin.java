@@ -26,7 +26,7 @@ public class Medecin {
     private String numeroRPPS;
     @NonNull
     @Column(nullable = false)
-    private String AdresseCabinet;
+    private String adresseCabinet;
 
     @OneToMany(mappedBy = "medecin")
     private List<Consultation> consultations;

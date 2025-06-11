@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface MedecinRepository extends JpaRepository<Medecin,String> {
+public interface MedecinRepository extends JpaRepository<Medecin,UUID> {
     Optional<Medecin> findByIdPersonne(UUID idPersonne);
     Optional<Medecin> deleteMedecinByIdPersonne(UUID idPersonne);
 

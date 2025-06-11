@@ -14,8 +14,12 @@ import java.util.UUID;
 public class FeuilleMaladie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")
+    private Consultation consultation;
 
     @NonNull
     @Column(nullable = false)
@@ -33,9 +37,9 @@ public class FeuilleMaladie {
     @Column(nullable = false)
     private String codeAssurance;
 
-    @OneToOne
-    @JoinColumn(name = "consultation_id", unique = true)
-    private Consultation consultation;
+//    @OneToOne
+//    @JoinColumn(name = "consultation_id", unique = true)
+//    private Consultation consultation;
 
 }
 

@@ -26,10 +26,10 @@ public class Prescription {
     private Consultation consultation;
 
 
-    @Column(nullable = false)
-    private String mediament;
+    @Column(nullable = true)
+    private String medicament;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String dosage;
 
     @ManyToOne
