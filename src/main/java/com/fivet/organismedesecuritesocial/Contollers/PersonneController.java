@@ -34,11 +34,23 @@ public class PersonneController {
     }
 
     @PostMapping("/creationDeMedecinGeneraliste")
-    public ResponseEntity<?> creerMedecin(@Validated @RequestBody CompteMedecinGeneralisteDTO compteMedecinGeneralisteDTO) {
+    public ResponseEntity<?> creerGeneraliste(@Validated @RequestBody CompteMedecinGeneralisteDTO compteMedecinGeneralisteDTO) {
         try{
             System.out.println(compteMedecinGeneralisteDTO);
             personneService.createNew(compteMedecinGeneralisteDTO.getPersonne(),compteMedecinGeneralisteDTO.getMedecin(),compteMedecinGeneralisteDTO.getGeneraliste());
             return ResponseEntity.status(HttpStatus.CREATED).body(compteMedecinGeneralisteDTO);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur lors de la création du compte Medecin Generaliste : " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/creationDeMedecinSpecialiste")
+    public ResponseEntity<?> creerSpecialiste(@Validated @RequestBody CompteMedecinSpecialisteDTO compteMedecinSpecialisteDTO) {
+        try{
+//            System.out.println(compteMedecinGeneralisteDTO);
+            personneService.createNew(compteMedecinSpecialisteDTO.getPersonne(),compteMedecinSpecialisteDTO.getMedecin(),compteMedecinSpecialisteDTO.getSpecialiste());
+            return ResponseEntity.status(HttpStatus.CREATED).body(compteMedecinSpecialisteDTO);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erreur lors de la création du compte Medecin Generaliste : " + e.getMessage());

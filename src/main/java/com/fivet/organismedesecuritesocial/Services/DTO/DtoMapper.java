@@ -1,7 +1,10 @@
 package com.fivet.organismedesecuritesocial.Services.DTO;
 
 import com.fivet.organismedesecuritesocial.Models.*;
+import com.fivet.organismedesecuritesocial.Repositories.MedecinRepository;
+import com.fivet.organismedesecuritesocial.Repositories.PersonneRepository;
 import com.fivet.organismedesecuritesocial.Services.DTO.Classes.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,17 +12,22 @@ import java.util.stream.Collectors;
 
 @Service
 public class DtoMapper {
+    @Autowired
+    static MedecinRepository medecinRepository;
+    @Autowired
+    static PersonneRepository personneRepository;
 
     public static MedecinLiteDTO toMedecinLiteDTO(Medecin medecin) {
+
         return new MedecinLiteDTO(medecin.getIdPersonne(), medecin.getPersonne().getNom(), medecin.getPersonne().getPrenom(), medecin.getNumeroRPPS(), medecin.getAdresseCabinet());
     }
 
     public static AssureDTO toAssureDTO(Assure patient) {
         if(patient.getMedecintraitant() == null){
-            return new AssureDTO(patient.getIdPersonne(), patient.getPersonne().getNom(), patient.getPersonne().getPrenom(), null);
+            return new AssureDTO(patient.getIdPersonne(), patient.getPersonne().getNom(), patient.getPersonne().getPrenom(), patient.getProfession(), patient.getSituationMatrimoniale(), patient.getPersonne().getMail(), patient.getPersonne().getDateNaiss(), patient.getPersonne().getLieuNaiss(), patient.getPersonne().getNumeroCNI(), patient.getPersonne().getNumeroSecuriteSociale(), null);
         }
         MedecinLiteDTO medecinLite = toMedecinLiteDTO(patient.getMedecintraitant());
-        return new AssureDTO(patient.getIdPersonne(), patient.getPersonne().getNom(), patient.getPersonne().getPrenom(), medecinLite);
+        return new AssureDTO(patient.getIdPersonne(), patient.getPersonne().getNom(), patient.getPersonne().getPrenom(), patient.getProfession(), patient.getSituationMatrimoniale(), patient.getPersonne().getMail(), patient.getPersonne().getDateNaiss(), patient.getPersonne().getLieuNaiss(), patient.getPersonne().getNumeroCNI(), patient.getPersonne().getNumeroSecuriteSociale(), medecinLite);
     }
 
     public static MedecinDTO toMedecinDTO(Medecin medecin) {

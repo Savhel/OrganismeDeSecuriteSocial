@@ -11,7 +11,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 public class Consultation {
 

@@ -10,12 +10,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/public")
@@ -45,13 +50,17 @@ public class AuthController {
 
             String jwt = jwtUtil.generateToken(request.getNom());
 
+            List<String> role = authentication.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+
             Personne personne = personneRepo.findByMail(request.getNom())
                     .orElseThrow(() -> {
                         return new UsernameNotFoundException("Utilisateur avec cet e-mail introuvable: " + request.getNom());
                     });
 
             System.out.println("=== LOGIN SUCCESSFUL ===");
-            return ResponseEntity.ok(new AuthResponse(jwt, personne));
+            return ResponseEntity.ok(new AuthResponse(jwt, role, personne));
 
         } catch (Exception e) {
             System.out.println("=== LOGIN FAILED ===");

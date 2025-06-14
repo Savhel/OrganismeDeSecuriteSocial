@@ -42,6 +42,11 @@ public class ServiceController {
         return ResponseEntity.ok(personneService.readOldSpecialistes());
     }
 
+    @GetMapping("/getAllAssure")
+    public ResponseEntity<?> getAllAssure() {
+        return ResponseEntity.ok(personneService.readOldAssures());
+    }
+
     @GetMapping("/getAllGeneraliste")
     public ResponseEntity<?> getAllGeneraliste() {
         return ResponseEntity.ok(personneService.readOldGeneralistes());

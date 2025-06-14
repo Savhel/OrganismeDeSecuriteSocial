@@ -1,6 +1,7 @@
 package com.fivet.organismedesecuritesocial.Services;
 
 import com.fivet.organismedesecuritesocial.Models.*;
+import com.fivet.organismedesecuritesocial.Repositories.MedecinRepository;
 import com.fivet.organismedesecuritesocial.Repositories.PersonneRepository;
 import com.fivet.organismedesecuritesocial.Services.DTO.Classes.*;
 import com.fivet.organismedesecuritesocial.Services.DTO.DtoMapper;
@@ -59,6 +60,8 @@ public class PersonneService {
     private LectureSpecialiste lectureSpecialiste;
     @Autowired
     private PersonneRepository personneRepository;
+    @Autowired
+    private MedecinRepository medecinRepository;
 
     @Transactional
     public AssureDTO createNew(Personne personne, Assure assure) {
@@ -105,6 +108,8 @@ public class PersonneService {
         modifierAssure.modifierAccount(assure, idPersonne);
         assure.setPersonne(modifierPersonne.modifierAccount(personne,idPersonne));
         assure.setIdPersonne(idPersonne);
+        assure.setMedecintraitant(medecinRepository.findByIdPersonne(assure.getMedecintraitant().getIdPersonne()).get());
+        System.out.println(assure);
         return DtoMapper.toAssureDTO(assure);
     }
     @Transactional
